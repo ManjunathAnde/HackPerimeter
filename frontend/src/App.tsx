@@ -9,6 +9,12 @@ import { isOnboarded } from "./profileOptions";
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `rounded-lg px-3 py-1.5 font-bold ${isActive ? "bg-ink text-cream" : "text-ink hover:bg-cream-dark"}`;
 
+// Checked when "/" mounts, not when App first renders: App renders once, so a check there
+// would keep redirecting to /start even after onboarding saves and navigates home.
+function Home() {
+  return isOnboarded() ? <ChatPage /> : <Navigate to="/start" replace />;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -35,7 +41,7 @@ export default function App() {
           </div>
         </nav>
         <Routes>
-          <Route path="/" element={isOnboarded() ? <ChatPage /> : <Navigate to="/start" replace />} />
+          <Route path="/" element={<Home />} />
           <Route path="/start" element={<OnboardingPage />} />
           <Route path="/roadmap" element={<RoadmapPage />} />
           <Route path="/sources" element={<SourcesPage />} />

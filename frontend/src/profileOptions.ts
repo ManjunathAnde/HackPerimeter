@@ -43,9 +43,12 @@ export const INTERESTS = [
 export const labelFor = (list: { id: string; label: string }[], id: string) => list.find((x) => x.id === id)?.label ?? id;
 
 const ONBOARDED_KEY = "pathfinder.onboarded";
+// In-memory fallback so blocked storage can't trap the user on onboarding for this session
+let onboardedThisSession = false;
 
-// Per-browser flag; if storage is blocked, onboarding simply shows again
+// Per-browser flag
 export function isOnboarded(): boolean {
+  if (onboardedThisSession) return true;
   try {
     return localStorage.getItem(ONBOARDED_KEY) === "1";
   } catch {
@@ -54,9 +57,10 @@ export function isOnboarded(): boolean {
 }
 
 export function markOnboarded(): void {
+  onboardedThisSession = true;
   try {
     localStorage.setItem(ONBOARDED_KEY, "1");
   } catch {
-    // ignore: the profile is still saved server-side
+    // ignore: the in-memory flag covers this session
   }
 }

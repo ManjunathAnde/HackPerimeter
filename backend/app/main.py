@@ -33,6 +33,12 @@ def put_profile(profile: Profile):
     return db.save_profile(profile.model_dump())
 
 
+@app.post("/api/profile/demo")
+def use_demo_profile():
+    demo = json.loads((config.CONFIG_DIR / "demo_profile.json").read_text(encoding="utf-8"))
+    return db.save_profile(demo)
+
+
 @app.post("/api/chat")
 def chat(req: ChatRequest):
     try:

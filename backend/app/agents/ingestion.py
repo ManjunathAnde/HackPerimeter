@@ -5,13 +5,12 @@ import re
 
 import yaml
 
-from app import config, db, llm
+from app import config, db
 from app.agents import watcher
 from app.ingest import extract, parse_html, parse_localist, parse_rss
 from app.ingest.fetch import fetch
 
 LOCALIST_MAX_PAGES = 6
-EVENTS_PER_LLM_CALL = 4  # bigger batches made both LLMs return cut-off JSON
 ROW_FIELDS = ["name", "type", "campus", "audience", "topics", "summary", "eligibility", "how_to_start",
               "contact_office", "contact_email", "contact_phone", "location_building", "location_room",
               "hours", "deadline", "event_start", "event_end", "evidence", "source_url"]
@@ -56,38 +55,13 @@ def _fetch_bodies(source: dict) -> tuple[list[str], str]:
     return bodies, final_url
 
 
-def _extract_events_batched(source: dict, events: list[dict]) -> tuple[list[dict], int, list[str]]:
-    """Several events per LLM call; each row is tied back to the event whose text holds its evidence quote."""
-    rows, dropped, texts = [], 0, []
-    for i in range(0, len(events), EVENTS_PER_LLM_CALL):
-        batch = events[i:i + EVENTS_PER_LLM_CALL]
-        text = "\n\n".join(f"EVENT: {e['text']}" for e in batch)
-        try:
-            got, d, _ = extract.extract(text, source, max_rows=len(batch))
-        except llm.LLMError:
-            # One bad batch shouldn't lose the other events in the feed
-            dropped += len(batch)
-            continue
-        dropped += d
-        texts += [e["text"] for e in batch]
-        for r in got:
-            event = next((e for e in batch if extract.evidence_ok(r["evidence"], e["text"])), None)
-            if event is None:  # quote spans two events, so we can't say which one it describes
-                dropped += 1
-                continue
-            r.update(type="event", source_url=event["link"], event_start=event["event_start"],
-                     event_end=event["event_end"], location_building=r.get("location_building") or event["location"])
-            if event["clarkston"]:
-                r["campus"] = "clarkston"
-            rows.append(r)
-    return rows, dropped, texts
-
-
 def _extract_rows(source: dict, bodies: list[str], final_url: str) -> tuple[list[dict], int, list[str]]:
     """Returns (rows, dropped, page texts used for evidence)."""
     body = bodies[0]
     if source["kind"] == "localist_api":
-        return _extract_events_batched(source, parse_localist.parse_events(bodies, source.get("keywords", [])))
+        # Structured JSON: fields map directly, no LLM; evidence is the description's first sentence
+        pairs = parse_localist.parse_events(bodies)
+        return [r for r, _ in pairs], 0, [t for _, t in pairs]
     if source["kind"] == "rss":
         rows, dropped, texts = [], 0, []
         for item in parse_rss.parse_items(body):

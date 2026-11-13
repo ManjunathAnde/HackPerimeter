@@ -1,8 +1,10 @@
-import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, NavLink, Route, Routes } from "react-router-dom";
 import AlertsBell from "./components/AlertsBell";
 import ChatPage from "./pages/ChatPage";
+import OnboardingPage from "./pages/OnboardingPage";
 import RoadmapPage from "./pages/RoadmapPage";
 import SourcesPage from "./pages/SourcesPage";
+import { isOnboarded } from "./profileOptions";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `rounded-lg px-3 py-1.5 font-bold ${isActive ? "bg-ink text-cream" : "text-ink hover:bg-cream-dark"}`;
@@ -33,7 +35,8 @@ export default function App() {
           </div>
         </nav>
         <Routes>
-          <Route path="/" element={<ChatPage />} />
+          <Route path="/" element={isOnboarded() ? <ChatPage /> : <Navigate to="/start" replace />} />
+          <Route path="/start" element={<OnboardingPage />} />
           <Route path="/roadmap" element={<RoadmapPage />} />
           <Route path="/sources" element={<SourcesPage />} />
         </Routes>

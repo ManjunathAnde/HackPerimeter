@@ -1,25 +1,25 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { getProfile, sendChat } from "../api";
 import MatchCard from "../components/MatchCard";
 import TracePanel from "../components/TracePanel";
+import { CAMPUSES, PATHWAYS, labelFor } from "../profileOptions";
 import type { ChatTurn, Profile } from "../types";
 
-const CAMPUS = { clarkston: "Clarkston" } as Record<string, string>;
-const PATHWAY = { business_admin: "Business Administration" } as Record<string, string>;
 
 function ProfileChip({ profile }: { profile: Profile }) {
   return (
-    <div className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border-2 border-ink bg-white px-4 py-1.5 text-sm">
+    <Link to="/start" title="Change student" className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border-2 border-ink bg-white px-4 py-1.5 text-sm hover:bg-paper">
       <span className="font-extrabold">{profile.name}</span>
       <span className="text-ink/40">·</span>
-      <span>{CAMPUS[profile.campus] ?? profile.campus}</span>
+      <span>{labelFor(CAMPUSES, profile.campus)}</span>
       <span className="text-ink/40">·</span>
-      <span>{PATHWAY[profile.pathway_id] ?? profile.pathway_id}</span>
+      <span>{labelFor(PATHWAYS, profile.pathway_id)}</span>
       <span className="text-ink/40">·</span>
       <span>{profile.credits} credits</span>
       <span className="text-ink/40">·</span>
       <span className="text-accent-dark">interests: {profile.topics.join(", ")}</span>
-    </div>
+    </Link>
   );
 }
 

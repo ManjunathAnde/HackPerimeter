@@ -102,7 +102,7 @@ def refresh_stale(conn, rows: list[dict], trace: list) -> list[dict]:
     for sid in stale:
         copy_date = min(r["fetched_at"] for r in rows if r["source_id"] == sid)[:10]
         src = sources.get(sid, {})
-        # The events feed costs ~10 LLM calls to re-extract; it refreshes through "Run now" instead
+        # The events feed is 6 API pages; it refreshes through "Run now" instead of mid-chat
         if src.get("last_status") not in HEALTHY or src.get("kind") == "localist_api" or refreshed >= MAX_REFETCH_SOURCES:
             trace.append({"step": "freshness", "detail": f"{sid}: using copy from {copy_date}", "ms": 0})
             continue

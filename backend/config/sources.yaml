@@ -18,10 +18,5 @@ sources:
   - {id: perimeter_business_club, url: "https://calendar.gsu.edu/group/perimeter_business_club", kind: page, campus: perimeter_all, every_hours: 24}
   - {id: student_engagement_group, url: "https://calendar.gsu.edu/group/student-engagement", kind: page, campus: gsu_wide, every_hours: 24}
   - {id: perimeter_college_dept, url: "https://calendar.gsu.edu/department/perimeter_college", kind: page, campus: perimeter_all, every_hours: 24}
-  # Localist events API, next 60 days; code keeps Clarkston events or keyword matches
-  - id: gsu_events_api
-    url: "https://calendar.gsu.edu/api/2/events?days=60&pp=100"
-    kind: localist_api
-    campus: gsu_wide
-    every_hours: 3
-    keywords: [business, entrepreneur, career, startup, start-up, robinson, launchgsu]
+  # Localist events API, next 60 days, every event; mapped from JSON fields without an LLM
+  - {id: gsu_events_api, url: "https://calendar.gsu.edu/api/2/events?days=60&pp=100", kind: localist_api, campus: gsu_wide, every_hours: 3}

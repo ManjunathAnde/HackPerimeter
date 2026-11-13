@@ -37,3 +37,7 @@ export const getPathways = () => request<Roadmap["pathway"][]>("/pathways");
 export const getRoadmap = (id: string) => request<Roadmap>(`/pathways/${id}/roadmap`);
 
 export const getStats = () => request<KbStats>("/stats");
+
+export const saveProfile = (p: Profile) => request<Profile>("/profile", { method: "PUT", body: JSON.stringify(p) });
+
+export const loadDemoProfile = () => request<Profile>("/profile/demo", { method: "POST" });

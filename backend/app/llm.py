@@ -42,7 +42,7 @@ def _call_gemini(prompt: str) -> str:
     resp = client.models.generate_content(
         model=config.GEMINI_MODEL,
         contents=prompt,
-        config=types.GenerateContentConfig(response_mime_type="application/json", temperature=0.2),
+        config=types.GenerateContentConfig(response_mime_type="application/json", temperature=0),
     )
     return resp.text
 
@@ -54,7 +54,7 @@ def _call_groq(prompt: str) -> str:
     resp = client.chat.completions.create(
         model=config.GROQ_MODEL,
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.2,
+        temperature=0,
         max_tokens=GROQ_MAX_TOKENS,
     )
     return resp.choices[0].message.content

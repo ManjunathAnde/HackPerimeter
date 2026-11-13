@@ -127,6 +127,10 @@ def _upsert(conn, source_id: str, r: dict, now: str) -> str:
 
 
 def run_source(source_id: str) -> dict:
+    if not config.INGEST_ENABLED:
+        # Same shape as a failed run, so the router trace shows "using copy from <date>"
+        return {"source_id": source_id, "rows_new": 0, "rows_changed": 0, "rows_unchanged": 0, "rows_dropped": 0,
+                "alerts_created": 0, "evidence_verified": 0, "error": "ingestion disabled on this deployment"}
     conn = db.connect()
     sync_sources(conn)
     # yaml-only settings (like keyword filters) ride along with the stored run state

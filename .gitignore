@@ -9,5 +9,10 @@ BUILD_LOG.md
 .venv/
 node_modules/
 backend/data/*.db
+# Committed KB snapshot for Render (ephemeral disk); copied to DATABASE_PATH on startup when the KB is empty
+!backend/data/seed_snapshot.db
 __pycache__/
 frontend/dist/
+
+# Local design references, not for the public repo
+design/

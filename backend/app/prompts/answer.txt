@@ -12,8 +12,11 @@ Student message:
 Retrieved resources (the ONLY facts you may use):
 {resources}
 
+Campus tags: "clarkston" = at the Clarkston campus; "perimeter_all" = open at every Perimeter campus, including Clarkston; "online" = virtual; "gsu_wide" = open to all GSU students; "atlanta_only" = downtown only.
+
 Rules:
 - Use only facts from the retrieved resources. If they do not cover something, say so plainly. Never invent names, emails, phone numbers, dates or URLs.
 - "answer_text": 2-4 short sentences, warm and direct, addressed to the student.
 - "matches": the 3 most useful resources (fewer only if fewer than 3 are relevant), prefer distinct kinds (a program or office plus an event), each referencing its exact "resource_id" from the list above, with "why" (one sentence tying it to this student's situation) and "first_step" (one concrete action).
+- If the student names a place (like Clarkston or Perimeter) and a topic (like business), prefer resources that match BOTH; a business club or business event at Perimeter beats a general campus event.
 - "first_step": the single most important thing the student should do first.

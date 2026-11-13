@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { getSources, runAll, runSource } from "../api";
 import type { Source } from "../types";
 
@@ -21,6 +22,8 @@ export default function SourcesPage() {
   const [running, setRunning] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // "Run all" takes minutes, so it's hidden unless the URL has ?admin=1
+  const isAdmin = useSearchParams()[0].get("admin") === "1";
 
   const load = () => getSources().then(setSources).catch((e) => setError(e.message));
   useEffect(() => {
@@ -70,15 +73,17 @@ export default function SourcesPage() {
           <h2 className="text-3xl font-black text-ink">Sources</h2>
           <p className="text-ink/70">Official GSU pages and feeds the agents read. Nothing else gets into answers.</p>
         </div>
-        <button onClick={all} disabled={running.size > 0} className="rounded-xl bg-ink px-5 py-2 font-bold text-cream hover:bg-ink/80 disabled:opacity-40">
-          Run all
-        </button>
+        {isAdmin && (
+          <button onClick={all} disabled={running.size > 0} className="rounded-xl bg-ink px-5 py-2 font-bold text-cream hover:bg-ink/80 disabled:opacity-40">
+            Run all
+          </button>
+        )}
       </div>
 
       {message && <p className="mb-4 rounded-xl border-2 border-ink bg-accent-soft px-4 py-2 font-semibold text-accent-dark">{message}</p>}
       {error && <p className="mb-4 rounded-xl bg-red-50 px-4 py-2 text-sm text-red-800">{error}</p>}
 
-      <div className="overflow-x-auto rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_0_#111]">
+      <div className="overflow-x-auto rounded-2xl border-2 border-ink bg-white shadow-[4px_4px_0_0_#1E2527]">
         <table className="w-full text-left text-sm">
           <thead className="border-b-2 border-ink bg-cream-dark text-xs uppercase tracking-wide">
             <tr>

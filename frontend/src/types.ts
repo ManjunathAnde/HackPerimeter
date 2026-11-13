@@ -90,3 +90,19 @@ export interface RunResult {
   run: { source_id: string; rows_new: number; rows_changed: number; rows_unchanged: number; rows_dropped: number; error: string | null };
   alerts_created: number;
 }
+
+export interface RoadmapStep {
+  title: string;
+  source_id: string;
+  resources: Resource[];
+}
+
+export interface Roadmap {
+  pathway: { id: string; name: string; focus: string; start: string; destination: string };
+  steps: RoadmapStep[];
+}
+
+export interface KbStats {
+  total: number;
+  by_type: Record<string, number>;
+}

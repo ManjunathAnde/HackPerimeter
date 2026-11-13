@@ -28,7 +28,7 @@ export default function EmailDraftModal({ resource, onClose }: { resource: Resou
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-4" onClick={onClose}>
       <div
-        className="flex max-h-[90vh] w-full max-w-xl flex-col gap-3 overflow-y-auto rounded-2xl border-2 border-ink bg-cream p-5 shadow-[6px_6px_0_0_#111]"
+        className="flex max-h-[90vh] w-full max-w-xl flex-col gap-3 overflow-y-auto rounded-2xl border-2 border-ink bg-cream p-5 shadow-[6px_6px_0_0_#1E2527]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4">

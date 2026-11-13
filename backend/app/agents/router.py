@@ -56,7 +56,9 @@ def upcoming_events(conn, topics: list[str]) -> list[dict]:
 
 def retrieve(conn, plan: dict, profile: dict, trace: list) -> list[dict]:
     best: dict[str, dict] = {}
-    for s in plan.get("searches", [])[:4]:
+    # A profile-anchored search runs every time, so results don't hinge on how the planner words its queries
+    anchor = {"query": " ".join(profile.get("topics", [])) + " " + (profile.get("interests") or "")}
+    for s in plan.get("searches", [])[:4] + [anchor]:
         t0 = time.monotonic()
         hits = search(conn, s.get("query", ""))
         trace.append({"step": "search", "detail": f"{s.get('query')!r} -> {len(hits)} rows",
@@ -124,7 +126,7 @@ def _history_text(history: list[dict]) -> str:
 
 
 def _resources_text(rows: list[dict]) -> str:
-    keep = ["id", "name", "type", "campus", "summary", "eligibility", "how_to_start", "contact_office",
+    keep = ["id", "name", "type", "campus", "topics", "summary", "eligibility", "how_to_start", "contact_office",
             "contact_email", "contact_phone", "location_building", "location_room", "hours", "deadline",
             "event_start", "source_url"]
     return json.dumps([{("resource_id" if k == "id" else k): r[k] for k in keep if r.get(k)} for r in rows], indent=1)
@@ -138,6 +140,8 @@ def handle(message: str, history: list[dict], profile: dict) -> dict:
     t0 = time.monotonic()
     plan, provider = llm.complete_json_traced(
         PLAN_PROMPT.format(profile=profile_text, history=_history_text(history), message=message), PLAN_SCHEMA)
+    # Models sometimes return searches as bare strings instead of {"query": ...}
+    plan["searches"] = [q if isinstance(q, dict) else {"query": str(q)} for q in plan.get("searches") or []]
     trace.append({"step": "plan", "detail": f"[{provider}] intent={plan.get('intent')!r} searches={[s.get('query') for s in plan.get('searches', [])]} needs_events={plan.get('needs_events')}",
                   "ms": int((time.monotonic() - t0) * 1000)})
 
@@ -158,9 +162,14 @@ def handle(message: str, history: list[dict], profile: dict) -> dict:
 
     t0 = time.monotonic()
     answer = ans.get("answer_text", "")
-    check = verify.verify_grounded(answer, rows, profile)
-    answer = verify.remove_sentences(answer, check["unsupported"])
-    result = "grounded" if check["grounded"] else f"removed {len(check['unsupported'])} unsupported sentence(s)"
+    try:
+        check = verify.verify_grounded(answer, rows, profile)
+        answer = verify.remove_sentences(answer, check["unsupported"])
+        result = "grounded" if check["grounded"] else f"removed {len(check['unsupported'])} unsupported sentence(s)"
+    except llm.LLMError:
+        # Cards are already limited to retrieved rows; an unchecked answer beats no answer on stage
+        check = {"grounded": False, "unsupported": [], "checker": "unavailable"}
+        result = "verifier unavailable, answer not checked"
     trace.append({"step": "verify", "detail": f"[{check['checker']}] {result}",
                   "ms": int((time.monotonic() - t0) * 1000)})
 

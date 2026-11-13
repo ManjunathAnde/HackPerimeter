@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Extra-wide heavy headings, like the mockup's display type */
+.font-display {
+  font-family: "Archivo", system-ui, sans-serif;
+  font-stretch: 125%;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}

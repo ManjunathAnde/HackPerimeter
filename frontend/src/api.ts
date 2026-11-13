@@ -1,4 +1,4 @@
-import type { Alert, ChatResponse, EmailDraft, Profile, RunResult, Source } from "./types";
+import type { Alert, ChatResponse, EmailDraft, KbStats, Profile, Roadmap, RunResult, Source } from "./types";
 
 const BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api";
 
@@ -31,3 +31,9 @@ export const getSources = () => request<Source[]>("/sources");
 export const runSource = (id: string) => request<RunResult>(`/sources/${id}/run`, { method: "POST" });
 
 export const runAll = () => request<{ runs: RunResult["run"][]; alerts_created: number }>("/ingest/run-all", { method: "POST" });
+
+export const getPathways = () => request<Roadmap["pathway"][]>("/pathways");
+
+export const getRoadmap = (id: string) => request<Roadmap>(`/pathways/${id}/roadmap`);
+
+export const getStats = () => request<KbStats>("/stats");

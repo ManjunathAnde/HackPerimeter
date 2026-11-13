@@ -62,7 +62,7 @@ export default function AlertsBell() {
       </button>
 
       {open && (
-        <div className="absolute right-0 z-40 mt-2 w-80 rounded-2xl border-2 border-ink bg-white p-2 shadow-[4px_4px_0_0_#111]">
+        <div className="absolute right-0 z-40 mt-2 w-80 rounded-2xl border-2 border-ink bg-white p-2 shadow-[4px_4px_0_0_#1E2527]">
           <h3 className="px-2 py-1 text-sm font-black">Alerts</h3>
           {alerts.length === 0 && <p className="px-2 py-3 text-sm text-ink/60">Nothing new. I'll tell you when something fits.</p>}
           {alerts.map((a) => (
@@ -84,7 +84,7 @@ export default function AlertsBell() {
       )}
 
       {toast && (
-        <div className="fixed bottom-24 right-6 z-50 max-w-sm rounded-2xl border-2 border-ink bg-accent p-4 text-white shadow-[4px_4px_0_0_#111]">
+        <div className="fixed bottom-24 right-6 z-50 max-w-sm rounded-2xl border-2 border-ink bg-accent p-4 text-white shadow-[4px_4px_0_0_#1E2527]">
           <p className="text-xs font-black uppercase tracking-wide">New for you</p>
           <p className="mt-1 font-semibold">{toast.message}</p>
         </div>

@@ -1,4 +1,5 @@
 import json
+import shutil
 import sqlite3
 from datetime import datetime, timezone
 
@@ -69,7 +70,25 @@ def connect() -> sqlite3.Connection:
     return conn
 
 
+def _kb_rows(path) -> int:
+    try:
+        with sqlite3.connect(path) as conn:
+            return conn.execute("SELECT COUNT(*) FROM resources").fetchone()[0]
+    except sqlite3.Error:
+        return 0
+
+
+def seed_if_empty() -> bool:
+    """Copy the committed snapshot into DATABASE_PATH when the KB is missing or empty (fresh Render disk)."""
+    if not config.SEED_SNAPSHOT.exists() or (config.DATABASE_PATH.exists() and _kb_rows(config.DATABASE_PATH) > 0):
+        return False
+    config.DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(config.SEED_SNAPSHOT, config.DATABASE_PATH)
+    return True
+
+
 def init_db() -> None:
+    seed_if_empty()
     with connect() as conn:
         conn.executescript(SCHEMA)
         if conn.execute("SELECT COUNT(*) FROM profile").fetchone()[0] == 0:

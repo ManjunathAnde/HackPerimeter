@@ -25,7 +25,7 @@ export default function MatchCard({ match }: { match: Match }) {
   const place = [r.location_building, r.location_room].filter(Boolean).join(", ");
 
   return (
-    <article className="flex flex-col gap-3 rounded-2xl border-2 border-ink bg-white p-5 shadow-[4px_4px_0_0_#111]">
+    <article className="flex flex-col gap-3 rounded-2xl border-2 border-ink bg-paper p-5 shadow-[4px_4px_0_0_#1E2527]">
       <div className="flex flex-wrap items-center gap-2">
         <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-accent-dark">
           {r.type}

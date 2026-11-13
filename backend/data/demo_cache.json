@@ -1,0 +1,333 @@
+{
+ "i want to turn my side hustle into a real business i m at perimeter where do i start": {
+  "answer": "Hey Jordan! Since you're looking to turn your resale side hustle into a real business, GSU has great resources to help you build it from the ground up. You can tap into incubators, workshops, and entrepreneurship offices to guide your next steps.",
+  "first_step": "Review the LaunchGSU incubator details and check out the upcoming Side Hustle Ideation Workshop to start planning your business.",
+  "matches": [
+   {
+    "resource": {
+     "id": "launchgsu_dept:launchgsu",
+     "source_id": "launchgsu_dept",
+     "name": "LaunchGSU",
+     "type": "service",
+     "campus": "gsu_wide",
+     "audience": "all_gsu",
+     "topics": [
+      "business",
+      "entrepreneurship"
+     ],
+     "summary": "An incubator open to all students at Georgia State looking to hustle and build something from the ground up through learning and mentorship opportunities.",
+     "eligibility": "Open to all students at Georgia State",
+     "how_to_start": null,
+     "contact_office": "J. Mack Robinson College of Business",
+     "contact_email": null,
+     "contact_phone": null,
+     "location_building": null,
+     "location_room": null,
+     "hours": null,
+     "deadline": null,
+     "event_start": null,
+     "event_end": null,
+     "evidence": "LaunchGSU is an incubator open to all students at Georgia State looking to hustle and build something from the ground up.",
+     "source_url": "https://calendar.gsu.edu/department/launchgsu",
+     "fetched_at": "2026-11-13T19:04:07+00:00",
+     "content_hash": "978d1055e5720e30d17e155db634064003302714c40b6751cf66cc8150f86f52",
+     "origin": "agent",
+     "status": "new",
+     "first_seen_at": "2026-11-13T19:04:07+00:00"
+    },
+    "why": "LaunchGSU is an incubator open to all GSU students that provides learning and mentorship opportunities to help you build your hustle from the ground up.",
+    "first_step": "Visit the LaunchGSU source link to learn more about joining the incubator through the J. Mack Robinson College of Business."
+   },
+   {
+    "resource": {
+     "id": "launchgsu_dept:side-hustle-ideation-workshop",
+     "source_id": "launchgsu_dept",
+     "name": "Side Hustle Ideation Workshop",
+     "type": "event",
+     "campus": "online",
+     "audience": "all_gsu",
+     "topics": [
+      "business",
+      "entrepreneurship",
+      "events"
+     ],
+     "summary": "An online workshop focused on side hustle ideation.",
+     "eligibility": null,
+     "how_to_start": null,
+     "contact_office": null,
+     "contact_email": null,
+     "contact_phone": null,
+     "location_building": null,
+     "location_room": null,
+     "hours": null,
+     "deadline": "2026-11-12",
+     "event_start": null,
+     "event_end": null,
+     "evidence": "Side Hustle Ideation Workshop Thu, Nov 12, 2026 5pm to 5:45pm Online",
+     "source_url": "https://calendar.gsu.edu/department/launchgsu",
+     "fetched_at": "2026-11-13T19:04:07+00:00",
+     "content_hash": "da67b1559c39b50bad7645c9b998a26695a54c74d0020629a951c3aa43ff493a",
+     "origin": "agent",
+     "status": "new",
+     "first_seen_at": "2026-11-13T19:04:07+00:00"
+    },
+    "why": "This online workshop focuses specifically on side hustle ideation, making it a great fit for developing your resale business concept.",
+    "first_step": "Mark your calendar for the deadline on November 12, 2026, and check the event calendar link for details."
+   },
+   {
+    "resource": {
+     "id": "eni_dept:entrepreneurship-and-innovation-institute-eni",
+     "source_id": "eni_dept",
+     "name": "Entrepreneurship and Innovation Institute (ENI)",
+     "type": "office",
+     "campus": "gsu_wide",
+     "audience": "all_gsu",
+     "topics": [
+      "business",
+      "entrepreneurship"
+     ],
+     "summary": "The Entrepreneurship & Innovation Institute provides business world concepts and experiences to students who aspire to reshape the future through entrepreneurship.",
+     "eligibility": null,
+     "how_to_start": null,
+     "contact_office": null,
+     "contact_email": null,
+     "contact_phone": null,
+     "location_building": null,
+     "location_room": null,
+     "hours": null,
+     "deadline": null,
+     "event_start": null,
+     "event_end": null,
+     "evidence": "The Entrepreneurship & Innovation Institute provides business world concepts and experiences to students who aspire to reshape the future through entrepreneurship.",
+     "source_url": "https://calendar.gsu.edu/department/ENI",
+     "fetched_at": "2026-11-13T19:04:12+00:00",
+     "content_hash": "d773446d994f08f233915a26a87f6229cdb6a578acf58284ec971b26e15a0087",
+     "origin": "agent",
+     "status": "new",
+     "first_seen_at": "2026-11-13T19:04:12+00:00"
+    },
+    "why": "The Entrepreneurship & Innovation Institute provides business world concepts and experiences for students aspiring to reshape the future through entrepreneurship.",
+    "first_step": "Explore the ENI department page to discover business world concepts and experiences tailored for aspiring entrepreneurs."
+   }
+  ],
+  "trace": [
+   {
+    "step": "plan",
+    "detail": "[gemini] intent='Start a business from a side hustle' searches=['entrepreneurship programs business students', 'small business incubator gsu', 'business advising student success'] needs_events=True",
+    "ms": 1578
+   },
+   {
+    "step": "search",
+    "detail": "'entrepreneurship programs business students' -> 20 rows",
+    "ms": 0
+   },
+   {
+    "step": "search",
+    "detail": "'small business incubator gsu' -> 20 rows",
+    "ms": 0
+   },
+   {
+    "step": "search",
+    "detail": "'business advising student success' -> 20 rows",
+    "ms": 0
+   },
+   {
+    "step": "search",
+    "detail": "'business entrepreneurship Turning my resale side hustle into a real business' -> 20 rows",
+    "ms": 0
+   },
+   {
+    "step": "search",
+    "detail": "upcoming events matching profile topics -> 21 rows, using 3",
+    "ms": 0
+   },
+   {
+    "step": "freshness",
+    "detail": "top rows fetched within 168h, no refetch",
+    "ms": 0
+   },
+   {
+    "step": "answer",
+    "detail": "[gemini] 3 matches proposed, 3 kept",
+    "ms": 1608
+   },
+   {
+    "step": "verify",
+    "detail": "[gemini] grounded",
+    "ms": 718
+   }
+  ],
+  "verification": {
+   "checker": "gemini",
+   "removed_sentences": []
+  }
+ },
+ "what s happening at clarkston for business students this month": {
+  "answer": "Hey Jordan! Since you're studying business and working on your resale side hustle, there are some great business-focused groups and online workshops available for you this month. Check out these resources tailored to your interests!",
+  "first_step": "Explore the Perimeter Business Club and review the Side Hustle Ideation Workshop details.",
+  "matches": [
+   {
+    "resource": {
+     "id": "perimeter_business_club:perimeter-business-club",
+     "source_id": "perimeter_business_club",
+     "name": "Perimeter Business Club",
+     "type": "org",
+     "campus": "perimeter_all",
+     "audience": "perimeter",
+     "topics": [
+      "business",
+      "academics"
+     ],
+     "summary": "An organization for students interested in business at Perimeter College.",
+     "eligibility": null,
+     "how_to_start": null,
+     "contact_office": null,
+     "contact_email": null,
+     "contact_phone": null,
+     "location_building": null,
+     "location_room": null,
+     "hours": null,
+     "deadline": null,
+     "event_start": null,
+     "event_end": null,
+     "evidence": "Perimeter Business Club Follow Program, Service & Organization 1 Person follows this program, service & organization",
+     "source_url": "https://calendar.gsu.edu/group/perimeter_business_club",
+     "fetched_at": "2026-11-13T19:04:43+00:00",
+     "content_hash": "d26fb857183ad1f0d8ab5cb4f17cef2f90d069de99fc7a36f90620dc94bec102",
+     "origin": "agent",
+     "status": "new",
+     "first_seen_at": "2026-11-13T19:04:43+00:00"
+    },
+    "why": "This student organization connects you with other Perimeter College students who are interested in business.",
+    "first_step": "Visit the Perimeter Business Club source URL to learn more about the organization."
+   },
+   {
+    "resource": {
+     "id": "launchgsu_dept:side-hustle-ideation-workshop",
+     "source_id": "launchgsu_dept",
+     "name": "Side Hustle Ideation Workshop",
+     "type": "event",
+     "campus": "online",
+     "audience": "all_gsu",
+     "topics": [
+      "business",
+      "entrepreneurship",
+      "events"
+     ],
+     "summary": "An online workshop focused on side hustle ideation.",
+     "eligibility": null,
+     "how_to_start": null,
+     "contact_office": null,
+     "contact_email": null,
+     "contact_phone": null,
+     "location_building": null,
+     "location_room": null,
+     "hours": null,
+     "deadline": "2026-11-12",
+     "event_start": null,
+     "event_end": null,
+     "evidence": "Side Hustle Ideation Workshop Thu, Nov 12, 2026 5pm to 5:45pm Online",
+     "source_url": "https://calendar.gsu.edu/department/launchgsu",
+     "fetched_at": "2026-11-13T19:04:07+00:00",
+     "content_hash": "da67b1559c39b50bad7645c9b998a26695a54c74d0020629a951c3aa43ff493a",
+     "origin": "agent",
+     "status": "new",
+     "first_seen_at": "2026-11-13T19:04:07+00:00"
+    },
+    "why": "This online workshop focuses on side hustle ideation, which directly aligns with your goal to turn your resale side hustle into a real business.",
+    "first_step": "Check the workshop details and deadline on November 12, 2026."
+   },
+   {
+    "resource": {
+     "id": "launchgsu_dept:launchgsu",
+     "source_id": "launchgsu_dept",
+     "name": "LaunchGSU",
+     "type": "service",
+     "campus": "gsu_wide",
+     "audience": "all_gsu",
+     "topics": [
+      "business",
+      "entrepreneurship"
+     ],
+     "summary": "An incubator open to all students at Georgia State looking to hustle and build something from the ground up through learning and mentorship opportunities.",
+     "eligibility": "Open to all students at Georgia State",
+     "how_to_start": null,
+     "contact_office": "J. Mack Robinson College of Business",
+     "contact_email": null,
+     "contact_phone": null,
+     "location_building": null,
+     "location_room": null,
+     "hours": null,
+     "deadline": null,
+     "event_start": null,
+     "event_end": null,
+     "evidence": "LaunchGSU is an incubator open to all students at Georgia State looking to hustle and build something from the ground up.",
+     "source_url": "https://calendar.gsu.edu/department/launchgsu",
+     "fetched_at": "2026-11-13T19:04:07+00:00",
+     "content_hash": "978d1055e5720e30d17e155db634064003302714c40b6751cf66cc8150f86f52",
+     "origin": "agent",
+     "status": "new",
+     "first_seen_at": "2026-11-13T19:04:07+00:00"
+    },
+    "why": "LaunchGSU is an incubator open to all GSU students that provides learning and mentorship opportunities to help you build something from the ground up.",
+    "first_step": "Reach out to LaunchGSU through the J. Mack Robinson College of Business contact office."
+   }
+  ],
+  "trace": [
+   {
+    "step": "plan",
+    "detail": "[gemini] intent='find business student events and entrepreneurship resources at Clarkston campus' searches=['Clarkston business events', 'entrepreneurship workshops Perimeter College', 'business student club Clarkston', 'advisement hold business pathway'] needs_events=True",
+    "ms": 796
+   },
+   {
+    "step": "search",
+    "detail": "'Clarkston business events' -> 20 rows",
+    "ms": 0
+   },
+   {
+    "step": "search",
+    "detail": "'entrepreneurship workshops Perimeter College' -> 20 rows",
+    "ms": 15
+   },
+   {
+    "step": "search",
+    "detail": "'business student club Clarkston' -> 20 rows",
+    "ms": 0
+   },
+   {
+    "step": "search",
+    "detail": "'advisement hold business pathway' -> 20 rows",
+    "ms": 0
+   },
+   {
+    "step": "search",
+    "detail": "'business entrepreneurship Turning my resale side hustle into a real business' -> 20 rows",
+    "ms": 0
+   },
+   {
+    "step": "search",
+    "detail": "upcoming events matching profile topics -> 21 rows, using 3",
+    "ms": 0
+   },
+   {
+    "step": "freshness",
+    "detail": "top rows fetched within 168h, no refetch",
+    "ms": 0
+   },
+   {
+    "step": "answer",
+    "detail": "[gemini] 3 matches proposed, 3 kept",
+    "ms": 1344
+   },
+   {
+    "step": "verify",
+    "detail": "[gemini] grounded",
+    "ms": 827
+   }
+  ],
+  "verification": {
+   "checker": "gemini",
+   "removed_sentences": []
+  }
+ }
+}

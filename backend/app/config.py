@@ -20,3 +20,6 @@ SCHEDULER_ENABLED = os.getenv("SCHEDULER_ENABLED", "0") == "1"
 CORS_ORIGINS = [o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")]
 HTTP_USER_AGENT = os.getenv("HTTP_USER_AGENT", "PathfinderBot/0.1")
 DEMO_FALLBACK = os.getenv("DEMO_FALLBACK", "0") == "1"
+# Render has an ephemeral disk and no crawling: serve the committed seed snapshot read-only
+INGEST_ENABLED = os.getenv("INGEST_ENABLED", "1") == "1"
+SEED_SNAPSHOT = BACKEND_DIR / "data" / "seed_snapshot.db"

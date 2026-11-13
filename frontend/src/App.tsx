@@ -1,6 +1,7 @@
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import AlertsBell from "./components/AlertsBell";
 import ChatPage from "./pages/ChatPage";
+import RoadmapPage from "./pages/RoadmapPage";
 import SourcesPage from "./pages/SourcesPage";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -19,6 +20,9 @@ export default function App() {
               <NavLink to="/" end className={linkClass}>
                 Chat
               </NavLink>
+              <NavLink to="/roadmap" className={linkClass}>
+                Roadmaps
+              </NavLink>
               <NavLink to="/sources" className={linkClass}>
                 Sources
               </NavLink>
@@ -30,6 +34,7 @@ export default function App() {
         </nav>
         <Routes>
           <Route path="/" element={<ChatPage />} />
+          <Route path="/roadmap" element={<RoadmapPage />} />
           <Route path="/sources" element={<SourcesPage />} />
         </Routes>
       </div>

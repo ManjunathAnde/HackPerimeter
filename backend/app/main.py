@@ -1,9 +1,10 @@
 import json
 
+import yaml
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from app import config, db, llm
+from app import config, db, demo_cache, llm
 from app.agents import ingestion, router
 from app.models import ChatRequest, DraftEmailRequest, Profile
 
@@ -37,6 +38,9 @@ def chat(req: ChatRequest):
     try:
         return router.handle(req.message, [m.model_dump() for m in req.history], db.get_profile())
     except llm.LLMError as e:
+        cached = demo_cache.lookup(req.message) if config.DEMO_FALLBACK else None
+        if cached:
+            return cached
         raise HTTPException(status_code=503, detail=f"Both LLM providers failed: {e}")
 
 
@@ -109,3 +113,40 @@ def run_source(source_id: str):
 def run_all():
     runs = [ingestion.run_source(s["id"]) for s in ingestion.load_sources()]
     return {"runs": runs, "alerts_created": sum(r["alerts_created"] for r in runs)}
+
+
+
+def load_pathways() -> list[dict]:
+    return yaml.safe_load((config.CONFIG_DIR / "pathways.yaml").read_text(encoding="utf-8"))
+
+
+def _step_resources(conn, step: dict) -> list[dict]:
+    fts = router._fts_query(step["query"])
+    rows = conn.execute(
+        """SELECT r.* FROM resources_fts JOIN resources r ON r.rowid = resources_fts.rowid
+           WHERE resources_fts MATCH ? AND r.source_id = ? ORDER BY bm25(resources_fts) LIMIT 1""",
+        (fts, step["source_id"]),
+    ).fetchall()
+    return [router.resource_dict(r) for r in rows]
+
+
+@app.get("/api/pathways")
+def list_pathways():
+    return [{k: p[k] for k in ["id", "name", "focus", "start", "destination"]} for p in load_pathways()]
+
+
+@app.get("/api/pathways/{pathway_id}/roadmap")
+def roadmap(pathway_id: str):
+    pathway = next((p for p in load_pathways() if p["id"] == pathway_id), None)
+    if pathway is None:
+        raise HTTPException(status_code=404, detail="Unknown pathway")
+    conn = db.connect()
+    steps = [{"title": s["title"], "source_id": s["source_id"], "resources": _step_resources(conn, s)} for s in pathway["steps"]]
+    # Only steps backed by a real KB row are shown; no template steps
+    return {"pathway": {k: v for k, v in pathway.items() if k != "steps"}, "steps": [s for s in steps if s["resources"]]}
+
+
+@app.get("/api/stats")
+def kb_stats():
+    by_type = {r["type"]: r["n"] for r in db.connect().execute("SELECT type, COUNT(*) AS n FROM resources GROUP BY type")}
+    return {"total": sum(by_type.values()), "by_type": by_type}

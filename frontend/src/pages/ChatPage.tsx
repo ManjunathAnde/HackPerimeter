@@ -107,7 +107,7 @@ export default function ChatPage() {
         <div ref={bottomRef} />
       </main>
 
-      <form onSubmit={onSubmit} className="sticky bottom-4 flex gap-2 rounded-2xl border-2 border-ink bg-white p-2 shadow-[4px_4px_0_0_#111]">
+      <form onSubmit={onSubmit} className="sticky bottom-4 flex gap-2 rounded-2xl border-2 border-ink bg-white p-2 shadow-[4px_4px_0_0_#1E2527]">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}

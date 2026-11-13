@@ -1,0 +1,29 @@
+# Each step resolves at request time to the best KB row in `source_id` matching `query`,
+# so steps always cite a real ingested row (source link + verified date) even after re-ingestion renames rows.
+- id: business_admin
+  name: Transfer roadmap
+  focus: Business Administration -> Robinson
+  start: Perimeter College, Clarkston
+  destination: J. Mack Robinson College of Business (BBA)
+  topics: [business, transition]
+  steps:
+    - {title: "Stay on your Business Administration pathway", source_id: perimeter_faq, query: "associate degree pathways"}
+    - {title: "Reach 30 credit hours plus core for the Atlanta Campus", source_id: perimeter_faq, query: "atlanta campus transition credit hours"}
+    - {title: "Join the Perimeter Business Club", source_id: perimeter_business_club, query: "perimeter business club"}
+    - {title: "Learn your BBA options", source_id: perimeter_business_club, query: "bba business degree information session"}
+    - {title: "Prep for internships at Clarkston", source_id: career_services_group, query: "clarkston internship prep workshop"}
+    - {title: "Get to know Robinson College of Business", source_id: robinson_dept, query: "robinson college business"}
+
+- id: startup
+  name: Startup roadmap
+  focus: Side hustle -> real business
+  start: Perimeter College, Clarkston
+  destination: A launched venture with GSU support
+  topics: [business, entrepreneurship]
+  steps:
+    - {title: "Join the LaunchGSU incubator", source_id: launchgsu_dept, query: "launchgsu incubator"}
+    - {title: "Shape your idea at a side hustle workshop", source_id: launchgsu_dept, query: "side hustle ideation workshop"}
+    - {title: "Ask ENI about Main Street Foundry", source_id: launchgsu_dept, query: "main street foundry"}
+    - {title: "Get to know ENI", source_id: eni_dept, query: "entrepreneurship innovation institute"}
+    - {title: "Get hands-on: CleanTech Internship", source_id: eni_dept, query: "cleantech internship"}
+    - {title: "Test your pitch in a challenge", source_id: launchgsu_dept, query: "truist technology immersion challenge"}

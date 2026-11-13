@@ -2,6 +2,7 @@
 import json
 import logging
 import re
+import time
 
 from google import genai
 from google.genai import types
@@ -14,6 +15,7 @@ log = logging.getLogger("pathfinder.llm")
 THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
 FENCE_RE = re.compile(r"^```(?:json)?\s*|\s*```$")
 LIST_KEY_RE = re.compile(r'^\s*\{\s*"(\w+)"\s*:\s*\[')
+GEMINI_503_WAIT_SEC = 2
 GROQ_MAX_TOKENS = 900  # Groq free tier rejects requests whose max output exceeds 1000 tokens/min
 
 
@@ -68,12 +70,16 @@ def complete_json_traced(prompt: str, schema_hint: str) -> tuple[dict, str]:
     full_prompt = f"{prompt}\n\nRespond with ONLY a JSON object matching this shape:\n{schema_hint}"
     errors = []
     for name, call in PROVIDERS:
-        # One retry on the same provider for invalid JSON; API errors fail over immediately
+        # One retry on the same provider for invalid JSON or a Gemini 503; other API errors fail over immediately
         for attempt in range(2):
             try:
                 text = call(full_prompt)
             except Exception as e:
                 errors.append(f"{name}: {type(e).__name__}: {e}")
+                # Gemini's "high demand" 503s are usually brief, and Groq answers less reliably than Gemini
+                if name == "gemini" and attempt == 0 and getattr(e, "code", None) == 503:
+                    time.sleep(GEMINI_503_WAIT_SEC)
+                    continue
                 break
             try:
                 return _parse(text, schema_hint), name

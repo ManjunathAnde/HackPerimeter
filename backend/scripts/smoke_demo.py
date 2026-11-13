@@ -9,22 +9,23 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from app import demo_cache  # noqa: E402
 
 API = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8000/api"
+# Each step passes if any of its expected cards appears
 CHECKS = {
     demo_cache.STEP2: ["LaunchGSU"],
-    demo_cache.STEP4: ["Perimeter Business Club"],
+    demo_cache.STEP4: ["Perimeter Business Club", "Side Hustle Ideation Workshop"],
 }
 
 responses, failed = {}, False
-for message, must_include in CHECKS.items():
+for message, any_of in CHECKS.items():
     r = httpx.post(f"{API}/chat", json={"message": message, "history": []}, timeout=180)
     r.raise_for_status()
     data = r.json()
     names = [m["resource"]["name"] for m in data["matches"]]
-    missing = [n for n in must_include if not any(n.lower() in x.lower() for x in names)]
+    found = [n for n in any_of if any(n.lower() in x.lower() for x in names)]
     unsourced = [m["resource"]["name"] for m in data["matches"] if not m["resource"].get("source_url")]
-    ok = data["answer"] and names and not missing and not unsourced
+    ok = data["answer"] and found and not unsourced
     failed |= not ok
-    print(f"{'PASS' if ok else 'FAIL'} {message!r}\n  cards: {names}\n  missing: {missing} unsourced: {unsourced}")
+    print(f"{'PASS' if ok else 'FAIL'} {message!r}\n  cards: {names}\n  expected any of: {any_of} unsourced: {unsourced}")
     responses[message] = data
 
 if failed:

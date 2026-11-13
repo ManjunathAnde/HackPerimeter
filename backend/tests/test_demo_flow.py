@@ -67,7 +67,8 @@ def test_step4_clarkston_question():
     r = client.post("/api/chat", json={"message": demo_cache.STEP4, "history": []})
     assert r.status_code == 200, r.text
     names = card_names(r.json())
-    assert any("Perimeter Business Club" in n for n in names), names
+    # Narrated as "Perimeter and Clarkston business resources": either anchor card is acceptable
+    assert any("Perimeter Business Club" in n or "Side Hustle Ideation Workshop" in n for n in names), names
     for m in r.json()["matches"]:
         assert_sourced(m["resource"])
 

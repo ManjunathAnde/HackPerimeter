@@ -59,11 +59,8 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 pb-6 sm:px-6">
-      <header className="flex flex-wrap items-center justify-between gap-3 py-5">
-        <h1 className="text-3xl font-black tracking-tight text-ink">
-          Path<span className="text-accent">finder</span>
-        </h1>
+    <div className="mx-auto flex min-h-[calc(100vh-4.5rem)] max-w-5xl flex-col px-4 pb-6 sm:px-6">
+      <header className="flex flex-wrap items-center gap-3 py-4">
         {profile && <ProfileChip profile={profile} />}
       </header>
 

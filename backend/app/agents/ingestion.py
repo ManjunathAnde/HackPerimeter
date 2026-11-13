@@ -6,6 +6,7 @@ import re
 import yaml
 
 from app import config, db, llm
+from app.agents import watcher
 from app.ingest import extract, parse_html, parse_localist, parse_rss
 from app.ingest.fetch import fetch
 
@@ -169,6 +170,7 @@ def run_source(source_id: str) -> dict:
              page_hash, changed_any, finished, source_id),
         )
     run = dict(conn.execute("SELECT * FROM ingestion_runs WHERE id=?", (run_id,)).fetchone())
+    run["alerts_created"] = watcher.process_run(run_id, source.get("label"))
     run["rows_unchanged"] = counts["unchanged"]
     run["evidence_verified"] = evidence_ok
     return run

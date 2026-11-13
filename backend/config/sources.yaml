@@ -4,8 +4,8 @@ rate_limit_per_sec: 1
 # Dropped (Cloudflare/AWS WAF bot challenge, 3/3 tries): eni.gsu.edu, launch.gsu.edu,
 # studentorganizations.gsu.edu, catalogs.gsu.edu content pages, registrar holds page.
 sources:
-  - {id: eni_cal, url: "https://calendar.gsu.edu/department/ENI/calendar/xml", kind: rss, campus: gsu_wide, every_hours: 3}
-  - {id: launchgsu_cal, url: "https://calendar.gsu.edu/department/launchgsu/calendar/xml", kind: rss, campus: gsu_wide, every_hours: 3}
+  - {id: eni_cal, url: "https://calendar.gsu.edu/department/ENI/calendar/xml", kind: rss, campus: gsu_wide, every_hours: 3, label: ENI}
+  - {id: launchgsu_cal, url: "https://calendar.gsu.edu/department/launchgsu/calendar/xml", kind: rss, campus: gsu_wide, every_hours: 3, label: LaunchGSU}
   - {id: perimeter_faq, url: "https://viewbook.gsu.edu/associate/", kind: page, campus: perimeter_all, every_hours: 24}
   - {id: perimeter_advising, url: "https://advisement.gsu.edu/perimeter-students/", kind: page, campus: perimeter_all, every_hours: 24}
   # Localist (calendar.gsu.edu) department/group pages: unit descriptions + upcoming events, no bot challenge

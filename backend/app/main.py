@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import config, db, llm
-from app.agents import router
+from app.agents import ingestion, router
 from app.models import ChatRequest, DraftEmailRequest, Profile
 
 app = FastAPI(title="Pathfinder")
@@ -63,3 +63,49 @@ def draft_email(req: DraftEmailRequest):
     # "to" comes only from the stored row, never from the model
     return {"to": resource.get("contact_email"), "subject": data.get("subject", ""),
             "body": data.get("body", ""), "contact_url": resource["source_url"]}
+
+
+
+@app.get("/api/alerts")
+def list_alerts(unread: int = 0):
+    sql = """SELECT a.*, r.name AS resource_name, r.source_url FROM alerts a
+             LEFT JOIN resources r ON r.id = a.resource_id"""
+    if unread:
+        sql += " WHERE a.read = 0"
+    return [dict(row) for row in db.connect().execute(sql + " ORDER BY a.id DESC")]
+
+
+@app.post("/api/alerts/{alert_id}/read")
+def mark_alert_read(alert_id: int):
+    with db.connect() as conn:
+        conn.execute("UPDATE alerts SET read = 1 WHERE id = ?", (alert_id,))
+    return {"ok": True}
+
+
+@app.get("/api/sources")
+def list_sources():
+    conn = db.connect()
+    ingestion.sync_sources(conn)
+    # Latest run per source supplies the row counts shown in the table
+    rows = conn.execute(
+        """SELECT s.*, r.rows_new, r.rows_changed, r.rows_dropped, r.error AS run_error,
+                  (SELECT COUNT(*) FROM resources WHERE source_id = s.id) AS rows_total
+           FROM sources s
+           LEFT JOIN ingestion_runs r ON r.id = (SELECT MAX(id) FROM ingestion_runs WHERE source_id = s.id)
+           WHERE s.enabled = 1 ORDER BY s.id"""
+    )
+    return [dict(row) for row in rows]
+
+
+@app.post("/api/sources/{source_id}/run")
+def run_source(source_id: str):
+    if source_id not in {s["id"] for s in ingestion.load_sources()}:
+        raise HTTPException(status_code=404, detail="Unknown source")
+    run = ingestion.run_source(source_id)
+    return {"run": run, "alerts_created": run["alerts_created"]}
+
+
+@app.post("/api/ingest/run-all")
+def run_all():
+    runs = [ingestion.run_source(s["id"]) for s in ingestion.load_sources()]
+    return {"runs": runs, "alerts_created": sum(r["alerts_created"] for r in runs)}

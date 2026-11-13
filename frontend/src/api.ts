@@ -1,4 +1,4 @@
-import type { ChatResponse, EmailDraft, Profile } from "./types";
+import type { Alert, ChatResponse, EmailDraft, Profile, RunResult, Source } from "./types";
 
 const BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api";
 
@@ -21,3 +21,13 @@ export const sendChat = (message: string, history: { role: string; content: stri
 
 export const draftEmail = (resource_id: string) =>
   request<EmailDraft>("/draft-email", { method: "POST", body: JSON.stringify({ resource_id }) });
+
+export const getAlerts = (unreadOnly = true) => request<Alert[]>(`/alerts${unreadOnly ? "?unread=1" : ""}`);
+
+export const markAlertRead = (id: number) => request<{ ok: boolean }>(`/alerts/${id}/read`, { method: "POST" });
+
+export const getSources = () => request<Source[]>("/sources");
+
+export const runSource = (id: string) => request<RunResult>(`/sources/${id}/run`, { method: "POST" });
+
+export const runAll = () => request<{ runs: RunResult["run"][]; alerts_created: number }>("/ingest/run-all", { method: "POST" });

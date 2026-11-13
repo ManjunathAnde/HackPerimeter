@@ -60,3 +60,33 @@ export interface EmailDraft {
   body: string;
   contact_url: string;
 }
+
+export interface Alert {
+  id: number;
+  resource_id: string;
+  message: string;
+  created_at: string;
+  read: number;
+  resource_name: string | null;
+  source_url: string | null;
+}
+
+export interface Source {
+  id: string;
+  url: string;
+  kind: string;
+  campus: string;
+  last_run_at: string | null;
+  last_changed_at: string | null;
+  last_status: string | null;
+  last_error: string | null;
+  rows_new: number | null;
+  rows_changed: number | null;
+  rows_dropped: number | null;
+  rows_total: number;
+}
+
+export interface RunResult {
+  run: { source_id: string; rows_new: number; rows_changed: number; rows_unchanged: number; rows_dropped: number; error: string | null };
+  alerts_created: number;
+}

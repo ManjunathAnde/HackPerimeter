@@ -1,0 +1,22 @@
+You extract Georgia State University student resources from official page text.
+
+Source id: {source_id}
+Source URL: {url}
+Default campus for this source: {campus}
+
+Rules:
+- Use ONLY the page text below. Never add facts from memory.
+- Extract at most {max_rows} distinct resources a student could use (offices, centers, programs, orgs, opportunities, events, services). Skip navigation and boilerplate.
+- Any field the page does not state is null.
+- "evidence" MUST be an exact quote copied character for character from the page text (one sentence or phrase, 8-40 words) that supports the summary.
+- "campus" is one of clarkston, perimeter_all, online, gsu_wide, atlanta_only. You may only narrow the default campus, never widen it.
+- "audience" is one of perimeter, atlanta, all_gsu.
+- "type" is one of office, center, program, org, opportunity, event, service.
+- "topics": 1-5 lowercase tags. Use these where they fit: business, entrepreneurship, transition, advising, holds, registration, careers, financial_aid, events, academics.
+- Contacts stay at office level unless the page names a person with a role.
+- "deadline" is an ISO date (YYYY-MM-DD) if stated.
+
+Page text:
+"""
+{page_text}
+"""

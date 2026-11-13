@@ -4,3 +4,10 @@ blueprint.md
 PROGRESS.md
 BUILD_LOG.md
 .claude/
+# Secrets, environments, local data
+.env
+.venv/
+node_modules/
+backend/data/*.db
+__pycache__/
+frontend/dist/

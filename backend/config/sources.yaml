@@ -8,3 +8,20 @@ sources:
   - {id: launchgsu_cal, url: "https://calendar.gsu.edu/department/launchgsu/calendar/xml", kind: rss, campus: gsu_wide, every_hours: 3}
   - {id: perimeter_faq, url: "https://viewbook.gsu.edu/associate/", kind: page, campus: perimeter_all, every_hours: 24}
   - {id: perimeter_advising, url: "https://advisement.gsu.edu/perimeter-students/", kind: page, campus: perimeter_all, every_hours: 24}
+  # Localist (calendar.gsu.edu) department/group pages: unit descriptions + upcoming events, no bot challenge
+  - {id: launchgsu_dept, url: "https://calendar.gsu.edu/department/launchgsu", kind: page, campus: gsu_wide, every_hours: 24}
+  - {id: eni_dept, url: "https://calendar.gsu.edu/department/ENI", kind: page, campus: gsu_wide, every_hours: 24}
+  - {id: robinson_dept, url: "https://calendar.gsu.edu/department/robinson", kind: page, campus: gsu_wide, every_hours: 24}
+  - {id: ciber_dept, url: "https://calendar.gsu.edu/department/center-for-international-business-education-research-ciber", kind: page, campus: gsu_wide, every_hours: 24}
+  - {id: intl_business_dept, url: "https://calendar.gsu.edu/department/institute_of_international_business", kind: page, campus: gsu_wide, every_hours: 24}
+  - {id: career_services_group, url: "https://calendar.gsu.edu/group/university-career-services", kind: page, campus: gsu_wide, every_hours: 24}
+  - {id: perimeter_business_club, url: "https://calendar.gsu.edu/group/perimeter_business_club", kind: page, campus: perimeter_all, every_hours: 24}
+  - {id: student_engagement_group, url: "https://calendar.gsu.edu/group/student-engagement", kind: page, campus: gsu_wide, every_hours: 24}
+  - {id: perimeter_college_dept, url: "https://calendar.gsu.edu/department/perimeter_college", kind: page, campus: perimeter_all, every_hours: 24}
+  # Localist events API, next 60 days; code keeps Clarkston events or keyword matches
+  - id: gsu_events_api
+    url: "https://calendar.gsu.edu/api/2/events?days=60&pp=100"
+    kind: localist_api
+    campus: gsu_wide
+    every_hours: 3
+    keywords: [business, entrepreneur, career, startup, start-up, robinson, launchgsu]

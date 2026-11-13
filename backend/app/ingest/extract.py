@@ -33,7 +33,8 @@ def evidence_ok(evidence: str, page_text: str) -> bool:
     return len(ev) >= 10 and ev in normalize(page_text)
 
 
-def extract(page_text: str, source: dict, max_rows: int = 8) -> tuple[list[dict], int, str]:
+# max_rows=5 keeps the JSON under Groq's 900-token output cap (8 rows came back cut off)
+def extract(page_text: str, source: dict, max_rows: int = 5) -> tuple[list[dict], int, str]:
     """Returns (valid rows, dropped count, llm provider)."""
     page_text = page_text[:MAX_PAGE_CHARS]
     prompt = PROMPT.format(source_id=source["id"], url=source["url"], campus=source["campus"],

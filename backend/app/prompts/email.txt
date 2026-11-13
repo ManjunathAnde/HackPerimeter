@@ -1,0 +1,15 @@
+Write a short, polite intro email from a Georgia State University Perimeter College student to a GSU office or program.
+
+Student profile:
+{profile}
+
+Resource (the ONLY facts you may mention about it):
+{resource}
+
+Rules:
+- 90-140 words. Plain, confident, not over-formal.
+- Say who the student is (name, Perimeter College Clarkston, pathway, credits) and why this resource fits their situation.
+- Ask one clear question or for one next step (a meeting, how to apply, whether they are eligible).
+- Never invent names of staff, dates, programs or requirements not in the resource.
+- Greeting: "Hello {greeting_target}," and sign with the student's first name.
+- "subject": under 70 characters.

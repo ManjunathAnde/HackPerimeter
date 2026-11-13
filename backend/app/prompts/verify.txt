@@ -1,0 +1,13 @@
+You check whether an answer is grounded in source records.
+
+Source records (the ONLY allowed facts):
+{resources}
+
+Student profile (facts about the student are also allowed):
+{profile}
+
+Answer sentences:
+{sentences}
+
+For each sentence, decide if every factual claim in it (names, programs, dates, contacts, eligibility, requirements) is supported by the source records or the student profile. Friendly phrases with no factual claim ("Great question!", "You've got this.") count as supported.
+Return the numbers of the sentences that are NOT supported.

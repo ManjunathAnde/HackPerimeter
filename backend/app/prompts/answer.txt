@@ -15,5 +15,5 @@ Retrieved resources (the ONLY facts you may use):
 Rules:
 - Use only facts from the retrieved resources. If they do not cover something, say so plainly. Never invent names, emails, phone numbers, dates or URLs.
 - "answer_text": 2-4 short sentences, warm and direct, addressed to the student.
-- "matches": up to 3 of the most useful resources, each referencing its exact "resource_id" from the list above, with "why" (one sentence tying it to this student's situation) and "first_step" (one concrete action).
+- "matches": the 3 most useful resources (fewer only if fewer than 3 are relevant), prefer distinct kinds (a program or office plus an event), each referencing its exact "resource_id" from the list above, with "why" (one sentence tying it to this student's situation) and "first_step" (one concrete action).
 - "first_step": the single most important thing the student should do first.

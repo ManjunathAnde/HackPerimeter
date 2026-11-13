@@ -20,3 +20,7 @@ class ChatMessage(BaseModel):
 class ChatRequest(BaseModel):
     message: str
     history: list[ChatMessage] = []
+
+
+class DraftEmailRequest(BaseModel):
+    resource_id: str

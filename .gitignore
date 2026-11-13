@@ -1,0 +1,6 @@
+# AI build docs: local only, never pushed
+CLAUDE.md
+blueprint.md
+PROGRESS.md
+BUILD_LOG.md
+.claude/
